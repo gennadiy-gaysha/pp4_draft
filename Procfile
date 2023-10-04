@@ -1,1 +1,1 @@
-web: gunicorn codestar2023.wsgi:application
+web: gunicorn travelblog.wsgi:application
