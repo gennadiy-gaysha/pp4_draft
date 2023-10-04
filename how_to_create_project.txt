@@ -172,7 +172,7 @@ just launch cmd in windows and run all these commands here
 - use API key from Account settings (in case of Multi-Factor Authentication) as
 a password
 
-- heroku logs --app=pp4-draft
+heroku logs --app=pp4-draft
 
 6. In local terminal:
 git add . > git commit -m 'message' > git push
