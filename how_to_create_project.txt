@@ -165,11 +165,14 @@ project
 
 - login to heroku terminal using command:
 heroku login -i
+In case of error:
+"heroku : The term 'heroku' is not recognized as the name of a cmdlet..."
+just launch cmd in windows and run all these commands here
 
 - use API key from Account settings (in case of Multi-Factor Authentication) as
 a password
 
-- heroku logs --app=django-codestar-app-gaysha-rep
+- heroku logs --app=pp4-draft
 
 6. In local terminal:
 git add . > git commit -m 'message' > git push
@@ -271,7 +274,25 @@ INSTALLED_APPS = [
 (note: order is important)
 
 - Tell Django to use Cloudinary to store media and static files
-Place under the Static files Note
+Place under the STATIC_URL:
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+# We set our static files directories, this is going to be a list, but
+# it's only going  to contain one item:
+# Список дополнительных нестандартных путей к статическим файлам,
+# используемых для сбора и для режима отладкию
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# We also set static route, now we don't use that in this project, but
+# it's good practice to set it anyway.
+# Путь к общей статической папке, формируемой при запуске
+# команды collectstatic (для сбора всей статики в единый каталог при
+# размещении сайта на реальном веб-сервере)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+-----------------------------------------------------------
+ - To put all your static files into STATIC_ROOT:
+   py manage.py collectstatic
+
+ - DEBUG = False
+ -----------------------------------------------------------
 .......
 https://www.youtube.com/watch?v=Qhypx3Z2Heg&t=1s
 https://docs.google.com/document/d/1bRNpiUz-89RV0EPzuvbvXyGcSErbR3eRcjfMSNHUaBg/edit?usp=sharing
