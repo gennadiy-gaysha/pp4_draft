@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+<title>{{ post.country }}</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="offset-1 col-md-2 mt-3 d-flex flex-column align-items-center text-center">
+                <img src="https://img.geonames.org/flags/x/{{country.iso|lower}}.gif" class="img-fluid rounded-start"
+                     alt="...">
+                <br>
+                <a href="https://en.wikipedia.org/wiki/{{country.country_name}}" target="_blank"><img
+                        src="{% static 'wiki.png' %}" class="img-fluid rounded-start"
+                        alt="..."></a>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title">{{ country.country_name }}</h4>
+                    <p class="card-text">ISO: <span style="text-transform: uppercase;">{{ country.iso }}</span></p>
+                    <p class="card-text">ISO3: <span style="text-transform: uppercase;">{{ country.iso3 }}</span></p>
+                    <p class="card-text">ISO Numeric: <span
+                            style="text-transform: uppercase;">{{ country.iso_numeric }}</span></p>
+                    <p class="card-text">FIPS: <span style="text-transform: uppercase;">{{ country.fips }}</span></p>
+                    <p class="card-text">Capital: <span style="text-transform: uppercase;">{{ country.capital }}</span>
+                    </p>
+                    <p class="card-text">Area (in sq km): <span style="text-transform: uppercase;">{{ country.area_sq_km|intcomma }}</span>
+                    </p>
+                    <p class="card-text">Population: <span style="text-transform: uppercase;">{{ country.population|intcomma }}</span>
+                    </p>
+
+                    {% if country.continent == 'AF' %}
+                    <p class="card-text">Continent: <span style="text-transform: uppercase;">Africa</span></p>
+                    {% elif country.continent == 'AS' %}
+                    <p class="card-text">Continent: <span style="text-transform: uppercase;">Asia</span></p>
+                    {% elif country.continent == 'EU' %}
+                    <p class="card-text">Continent: <span style="text-transform: uppercase;">Europe</span></p>
+                    {% elif country.continent == 'NA' %}
+                    <p class="card-text">Continent: <span style="text-transform: uppercase;">North America</span></p>
+                    {% elif country.continent == 'SA' %}
+                    <p class="card-text">Continent: <span style="text-transform: uppercase;">South America</span></p>
+                    {% elif country.continent == 'OC' %}
+                    <p class="card-text">Continent: <span style="text-transform: uppercase;">Oceania</span></p>
+                    {% else %}
+                    <p class="card-text">Continent: <span style="text-transform: uppercase;">Antarctica</span></p>
+                    {% endif %}
+
+                    <p class="card-text">Internet TLD: <span>{{ country.tld }}</span></p>
+                    <p class="card-text">Currency Code: <span style="text-transform: uppercase;">{{ country.currency_code }}</span>
+                    </p>
+                    <p class="card-text">Currency Name: <span style="text-transform: uppercase;">{{ country.currency_name }}</span>
+                    </p>
+                    <p class="card-text">Phone: <span style="text-transform: uppercase;">{{ country.phone }}</span></p>
+                    <p class="card-text">Languages: <span
+                            style="text-transform: uppercase;">{{ country.languages }}</span></p>
+                    <p class="card-text">Geonameid: <span
+                            style="text-transform: uppercase;">{{ country.geonameid }}</span></p>
+                    <p class="card-text">Neighbours: <span
+                            style="text-transform: uppercase;">{{ country.neighbours }}</span></p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

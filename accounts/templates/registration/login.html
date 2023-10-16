@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Logging in</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <h1>Logging in</h1>
+
+    <form method="post">
+        <div class="form-group form-login-width">
+            {% csrf_token %}
+            <label for="loginUsername">Username:</label>
+            <input type="text" class="form-control" id="loginUsername" name="username">
+            <label for="login-password">Password</label>
+            <input type="password" class="form-control" id="loginPassword" name="password">
+            <br>
+            <button class="btn btn-outline-success">Login</button>
+        </div>
+    </form>
+    <br>
+</div>
+{% endblock content %}

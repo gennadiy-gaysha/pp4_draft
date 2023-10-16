@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Create new post</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-2 d-flex flex-column align-items-center text-center">
+                {% if "placeholder" in userprofile.profile_picture.url and userprofile.gender == 'Female' %}
+                <img src="{% static 'placeholder_f.jpg' %}" height=120 class="mt-3">
+                {% elif "placeholder" in userprofile.profile_picture.url and userprofile.gender == 'Male' %}
+                <img src="{% static 'placeholder_m.jpg' %}" height=120 class="mt-3">
+                {% elif "placeholder" in userprofile.profile_picture.url and userprofile.gender == 'Other' %}
+                <img src="{% static 'placeholder_o.jpg' %}" height=120 class="mt-3">
+                {% elif "placeholder" in userprofile.profile_picture.url and not userprofile.gender %}
+                <img src="{% static 'placeholder_o.jpg' %}" height=120 class="mt-3">
+                {% else %}
+                <img src="{{ userprofile.profile_picture.url }}" height=120 class="mt-4">
+                {% endif %}
+
+                <a href="javascript:history.back()" class="btn btn-outline-success mt-4">Previous</a>
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h5 class="card-title">{{ author.first_name }} {{ author.last_name }}</h5>
+                    <p class="card-text">{{ userprofile.bio|safe }}</p>
+                    {% if userprofile.home_country %}
+                    <p class="card-text">Home country: <span style="text-transform: uppercase;">{{ userprofile.home_country }}</span></p>
+                    {% else %}
+                    <p class="card-text">Home-country: <span style="text-transform: uppercase;">n/a</span></p>
+                    {% endif %}
+                    {% if userprofile.gender %}
+                    <p class="card-text">Gender: <span style="text-transform: uppercase;">{{ userprofile.gender }}</span></p>
+                    {% else %}
+                    <p class="card-text">Gender: <span style="text-transform: uppercase;">n/a</span></p>
+                    {% endif %}
+                    {% if userprofile.date_of_birth %}
+                    <p class="card-text">Date of birth: <span style="text-transform: uppercase;">{{ userprofile.date_of_birth }}</span></p>
+                    {% else %}
+                    <p class="card-text">Date of birth: <span style="text-transform: uppercase;">n/a</span></p>
+                    {% endif %}
+                    <p class="card-text text-muted">
+                        {% if not userprofile.instagram_profile and not userprofile.twitter_profile and not userprofile.linkedin_profile and not userprofile.facebook_profile %}
+                        {% else %}
+                        Follow me:
+                        {% if userprofile.instagram_profile %}
+                        <a href="{{ userprofile.instagram_profile }}" class="follow-me" target="_blank"><i class="fab fa-instagram-square ms-3"></i></a>
+                        {% endif %}
+                        {% if userprofile.twitter_profile %}
+                        <a href="{{ userprofile.twitter_profile }}" class="follow-me" target="_blank"><i class="fab fa-twitter-square ms-3"></i></a>
+                        {% endif %}
+                        {% if userprofile.linkedin_profile %}
+                        <a href="{{ userprofile.linkedin_profile }}" class="follow-me" target="_blank"><i class="fa-brands fa-linkedin ms-3"></i></a>
+                        {% endif %}
+                        {% if userprofile.facebook_profile %}
+                        <a href="{{ userprofile.facebook_profile }}" class="follow-me" target="_blank"><i class="fab fa-facebook-square ms-3"></i></a>
+                        {% endif %}
+                        {% endif %}
+                    </p>
+                    {% if user.is_authenticated and user.id == userprofile.user.id %}
+                    <a href="{% url 'update-profile' username=user.username %}" class="btn btn-outline-success">Update profile</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

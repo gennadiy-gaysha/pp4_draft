@@ -1,0 +1,29 @@
+ISO: The ISO code for the country.
+ISO3: The three-letter ISO code for the country.
+ISO-Numeric: The numeric ISO code for the country.
+FIPS: The FIPS code for the country.
+COUNTRY NAME
+Capital: The capital city of the country.
+Area: The area of the country in square kilometers.
+POPULATION
+Continent: The continent the country belongs to.
+tld: The top-level domain of the country.
+CurrencyCode: The currency code used in the country.
+CurrencyName: The name of the currency used in the country.
+Phone: The phone code of the country.
+Postal Code Format: The format of the postal code used in the country.
+Postal Code Regex: The regular expression for the postal code used in the country.
+Languages: The languages spoken in the country.
+geonameid: The geonameid of the country.
+neighbours: The neighboring countries of the country.
+EquivalentFipsCode: The equivalent FIPS code of the country.
+
+paste special>paste special>use text import dialogue box
+
+blank=True (validation purposes in forms) - allows the field to be left blank
+in forms. It does not mean the field in the database can be null. This option
+is typically used for fields that are not required, meaning they can be left
+empty when submitting a form.
+
+
+

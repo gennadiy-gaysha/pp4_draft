@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Create profile</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <h1>Create profile</h1>
+
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group form-width">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-outline-success">Create profile</button>
+        </div>
+    </form>
+
+    <br>
+</div>
+{% endblock content %}

@@ -60,6 +60,13 @@ body {
     text-transform: uppercase;
 }
 
+.profile-image {
+    text: red;
+    width: 8px;
+    height: 12px;
+    object-fit: cover;
+}
+
 .masthead {
     margin-top: 10px;
     overflow: hidden;
@@ -94,6 +101,12 @@ body {
     z-index: 100;
 }
 
+.hello-user{
+    padding: 8px 16px;
+    color: #23BBBB;
+    font-weight: bold;
+}
+
 .post-link {
     text-decoration: none;
     color: #445261;
@@ -112,6 +125,14 @@ body {
 .post-subtitle {
     margin-left: 5%;
     color: lightgray;
+}
+
+.form-width{
+    width: 70%;
+}
+
+.form-login-width{
+    width: 30%;
 }
 
 .btn-signup {
@@ -148,3 +169,28 @@ body {
     background: transparent;
     border: none;
 }
+
+.follow-me {
+    color: grey;
+}
+
+.follow-me:hover {
+    color: #253A47;
+}
+
+.follow-us {
+    color: #E9EDE9;
+}
+
+.follow-us:hover {
+    color: #3F778D;
+}
+
+    #msg {
+        position: absolute;
+        top: 100px; /* Adjust the top position as needed */
+        left: 50%; /* Adjust the right position as needed */
+        z-index: 1000; /* Adjust the z-index value to make sure it is above other elements */
+        width: 300px; /* Adjust the width of the flash message */
+        height: 100px; /* Adjust the height of the flash message */
+    }

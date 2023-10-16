@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block title %}
+<title>{{post.title}}</title>
+{% endblock title %}
+
 {% block content %}
 
 <div class="masthead">
@@ -12,14 +16,15 @@
                 <h1 class="post-title">{{post.title}}
                 </h1>
                 <!-- Post author goes before the | the post's created date goes after -->
-                <p class="post-subtitle">{{post.author}} | {{post.created_on}}</p>
+                <p class="post-subtitle"><a href="{% url 'author-bio' author_name=post.author %}"
+                                            class="text-white">{{post.author}}</a> | {{post.created_on}}</p>
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
                 {% if "placeholder" in post.featured_image.url %}
-                <img src="{% static 'logo.png' %}" width="100%">
+                <img src="{% static 'logo.jpg' %}" width="100%">
                 {% else %}
-                <img src="" width="100%">
+                <img src="{{ post.featured_image.url }}" width="100%">
                 {% endif %}
             </div>
         </div>
@@ -33,10 +38,15 @@
                 <!-- The post content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
                 <p class="card-text ">{{post.content|safe}}</p>
-
+                {% if user.is_authenticated and user.id == post.author.id %}
+                <a href="{% url 'update-post' slug=post.slug %}" class="btn btn-outline-success">Update Post</a>
+                <a href="{% url 'delete-post' slug=post.slug %}" class="btn btn-outline-success">Delete Post</a>
+                {% endif %}
+                <a href="{% url 'home' %}" class="btn btn-outline-success">Home</a>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col">
             <hr>

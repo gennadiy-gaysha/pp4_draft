@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Update profile</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="container">
+        {% if user.is_authenticated and user.id == userprofile.user.id %}
+        <br>
+        <h1>Update profile</h1>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group form-width">
+
+                {% if "placeholder" in userprofile.profile_picture.url and userprofile.gender == 'Female' %}
+                <p>Current profile image: <img src="{% static 'placeholder_f.jpg' %}" alt="Placeholder Female" width=75>
+                </p>
+                {% elif "placeholder" in userprofile.profile_picture.url and userprofile.gender == 'Male' %}
+                <p>Current profile image: <img src="{% static 'placeholder_m.jpg' %}" alt="Placeholder Male" width=75>
+                </p>
+                {% elif "placeholder" in userprofile.profile_picture.url and userprofile.gender == 'Other' %}
+                <p>Current profile image: <img src="{% static 'placeholder_o.jpg' %}" alt="Placeholder Other" width=75>
+                </p>
+                {% elif "placeholder" in userprofile.profile_picture.url and not userprofile.gender %}
+                <p>Current profile image: <img src="{% static 'placeholder_o.jpg' %}" alt="Placeholder" width=75></p>
+                {% else %}
+                <p>Current profile image: <img src="{{ form.instance.profile_picture.url }}" alt="Profile Picture"
+                                               width=75></p>
+                {% endif %}
+
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-outline-success">Submit</button>
+
+                <p></p>
+            </div>
+        </form>
+        {% else %}
+        <h1>You are not authorized to update this profile</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

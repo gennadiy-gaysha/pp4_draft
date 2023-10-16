@@ -23,9 +23,20 @@
             integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
 </head>
+<style>
+    #msg {
+        position: absolute;
+        top: 150px;
+        left: 50%;
+        z-index: 1000; /* Adjust the z-index value to make sure it is above other elements */
+        transform: translate(-50%, -50%);
+        width: 500px; /* Adjust the width of the flash message */
+        height: 60px; /* Adjust the height of the flash message */
+    }
 
+
+</style>
 <body class="d-flex flex-column h-100 main-bg">
 
 <!-- Navigation -->
@@ -48,23 +59,68 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Logout</a>
+                    <a class="nav-link text-white" href="{% url 'create-post' %}">New post</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle  text-white" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        My profile
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if user.userprofile.id %}
+                        <li><a class="dropdown-item" href="{% url 'author-bio' author_name=user %}">Show profile</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'update-profile' username=user.username %}">Update
+                            profile</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'create-profile' username=user.username %}">Create new
+                            profile</a></li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="{% url 'edit-profile' %}">Edit details</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'change-password' %}">Change password</a></li>
+
+                    </ul>
+                </li>
+
+                <li class="hello-user nav-link">hello, {{user.username}}</li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link text-white" href="{% url 'register' %}">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
                 </li>
+                <li class="hello-user">hello, guest user</li>
+
                 {% endif %}
             </ul>
-            <span class="navbar-text text-muted text-white fw-bold">
-                    There’s no such thing as a bad trip
-                </span>
+
+            <form class="d-flex" method=POST action="{%url 'search-country'%}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" placeholder="Search country" name="searched" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
     </div>
 </nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% for message in messages %}
+            <div class="alert-dismissible fade show alert {{message.tags}}" role="alert" id="msg">
+                {{message|safe}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 <main class="flex-shrink-0 main-bg">
     {% block content %}
@@ -75,11 +131,25 @@
 <!-- Footer -->
 <footer class="footer mt-auto py-3 dark-bg">
     <p class="text-center text-white">&copy; 2023 travel blog</p>
-    <p class="m-0 text-center text-white">Follow us: <i class="fab fa-facebook-square ms-3"></i>
-        <i class="fab fa-twitter-square ms-3"></i>
-        <i class="fab fa-instagram-square ms-3"></i>
-        <i class="fab fa-youtube-square ms-3"></i></p>
+    <p class="m-0 text-center text-white">Follow us:
+        <a href="https://www.facebook.com/" class="follow-us" target="_blank"><i
+                class="fab fa-facebook-square ms-3"></i></a>
+        <a href="https://twitter.com/" class="follow-us" target="_blank"><i class="fab fa-twitter-square ms-3"></i></a>
+        <a href="https://www.instagram.com/" class="follow-us" target="_blank"><i
+                class="fab fa-instagram-square ms-3"></i></a>
+        <a href="https://www.youtube.com/" class="follow-us" target="_blank"><i class="fab fa-youtube-square ms-3"></i>
+        </a>
 </footer>
+
+<script>
+        setTimeout(function(){
+            let messages = document.getElementById('msg');
+            let alert = new bootstrap.Alert(messages);
+            alert.close()
+            }, 1000);
+
+</script>
+
 </body>
 
 </html>

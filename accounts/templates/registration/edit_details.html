@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Edit details</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <h1>Edit details</h1>
+    <form method="post">
+        <div class="form-group form-width">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-outline-success">Submit</button>
+        </div>
+    </form>
+
+    <br>
+</div>
+{% endblock content %}
