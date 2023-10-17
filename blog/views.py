@@ -99,8 +99,10 @@ class ShowCountry(DetailView):
 
 def search_country(request):
     if request.method == 'POST':
-        searched = request.POST.get('searched')
-        return render(request, 'blog/show_search_country.html', {'searched': searched})
+        searched_country = request.POST.get('searched-country')
+        countries = Country.objects.filter(country_name__icontains=searched_country)
+        context={'searched_country': searched_country, 'countries': countries}
+        return render(request, 'blog/show_search_country.html', context)
     else:
-        return render(request, 'blog/show_search_country.html', {})
+        return render(request, 'blog/show_search_country.html')
 

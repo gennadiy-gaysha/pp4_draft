@@ -26,3 +26,5 @@ class PostForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-control', 'style': 'width: 100%'})
             # 'content': forms.Textarea(attrs={'class': 'form-control'})
         }
+
+

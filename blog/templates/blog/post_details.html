@@ -17,7 +17,7 @@
                 </h1>
                 <!-- Post author goes before the | the post's created date goes after -->
                 <p class="post-subtitle"><a href="{% url 'author-bio' author_name=post.author %}"
-                                            class="text-white">{{post.author}}</a> | {{post.created_on}}</p>
+                                            class="text-white text-decoration-none">{{post.author}}</a> | {{post.created_on}}</p>
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->

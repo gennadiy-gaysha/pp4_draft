@@ -297,5 +297,33 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 https://www.youtube.com/watch?v=Qhypx3Z2Heg&t=1s
 https://docs.google.com/document/d/1bRNpiUz-89RV0EPzuvbvXyGcSErbR3eRcjfMSNHUaBg/edit?usp=sharing
 
+============================================================
+Подключение гугл карт через гуглклауд платформу:
+1. зарегался в гуглклауд через леру
+2. подключил свою карту в биллинге
+3. создал проект
+4. создал апи ключ, и поставил ограничение на сайт указав урл
+5. +enable apis and services>Maps JavaScript API>Enable
+6. in index.html:
+<body>
+    <div id="map">sdfsf</div>
+
+    <script>
+      function initMap() {
+        let uluru = { lat: -25.344, lng: 131.0 };
+        let map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: uluru,
+        });
+        let marker = new google.maps.Marker({ position: uluru, map: map });
+      }
+    </script>
+
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKhUd-XD5DrQb_77xWuj-yIQqMkQcrUV0&callback=initMap&v=weekly"
+    ></script>
+  </body>
 
 

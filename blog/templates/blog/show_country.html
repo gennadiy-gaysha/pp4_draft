@@ -8,26 +8,24 @@
 {% endblock title %}
 
 {% block content %}
-<div class="container">
-    <br>
+<div class="container mt-3">
     <div class="card mb-3">
         <div class="row g-0">
-            <div class="offset-1 col-md-2 mt-3 d-flex flex-column align-items-center text-center">
-                <img src="https://img.geonames.org/flags/x/{{country.iso|lower}}.gif" class="img-fluid rounded-start"
-                     alt="...">
+            <div class="col-md-4 mt-3 d-flex flex-column align-items-center text-center">
+                <div class="image-border">
+                    <img src="https://img.geonames.org/flags/x/{{country.iso|lower}}.gif"
+                         class="img-fluid rounded-start"
+                         alt="{{country.country_name}} flag">
+                </div>
+
                 <br>
-                <a href="https://en.wikipedia.org/wiki/{{country.country_name}}" target="_blank"><img
-                        src="{% static 'wiki.png' %}" class="img-fluid rounded-start"
-                        alt="..."></a>
+                <div id="map">
+                </div>
             </div>
-            <div class="col-md-8">
-                <div class="card-body">
+            <div class="col-md-5">
+                <div class="card-body text-center">
                     <h4 class="card-title">{{ country.country_name }}</h4>
-                    <p class="card-text">ISO: <span style="text-transform: uppercase;">{{ country.iso }}</span></p>
-                    <p class="card-text">ISO3: <span style="text-transform: uppercase;">{{ country.iso3 }}</span></p>
-                    <p class="card-text">ISO Numeric: <span
-                            style="text-transform: uppercase;">{{ country.iso_numeric }}</span></p>
-                    <p class="card-text">FIPS: <span style="text-transform: uppercase;">{{ country.fips }}</span></p>
+                    <br>
                     <p class="card-text">Capital: <span style="text-transform: uppercase;">{{ country.capital }}</span>
                     </p>
                     <p class="card-text">Area (in sq km): <span style="text-transform: uppercase;">{{ country.area_sq_km|intcomma }}</span>
@@ -59,17 +57,59 @@
                     <p class="card-text">Phone: <span style="text-transform: uppercase;">{{ country.phone }}</span></p>
                     <p class="card-text">Languages: <span
                             style="text-transform: uppercase;">{{ country.languages }}</span></p>
-                    <p class="card-text">Geonameid: <span
-                            style="text-transform: uppercase;">{{ country.geonameid }}</span></p>
-                    <p class="card-text">Neighbours: <span
-                            style="text-transform: uppercase;">{{ country.neighbours }}</span></p>
-
-
+                    <hr>
+                    <a href="https://en.wikipedia.org/wiki/{{country.country_name}}" target="_blank"><img
+                            src="{% static 'wiki.png' %}" class="img-fluid rounded-start" id="wiki"
+                            alt="..."></a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 {% endblock content %}
+
+{% block script %}
+<script>
+  function initMap() {
+    let geocoder = new google.maps.Geocoder();
+    let countryName = "{{country.country_name}}"; // Replace with the desired country name
+    let capitalName = "{{country.capital}}"; // Replace with the desired capital city name
+
+    geocoder.geocode({ address: countryName }, function (results, status) {
+      if (status === "OK") {
+        let countryCoordinates = results[0].geometry.location;
+        geocoder.geocode({ address: capitalName }, function (results, status) {
+          if (status === "OK") {
+            let capitalCoordinates = results[0].geometry.location;
+            let map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 4,
+              center: countryCoordinates,
+            });
+            let marker = new google.maps.Marker({
+              position: capitalCoordinates,
+              map: map,
+            });
+          } else {
+            console.log("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      } else {
+        console.log("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+
+
+
+
+</script>
+
+
+<script
+        async
+        defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKhUd-XD5DrQb_77xWuj-yIQqMkQcrUV0&callback=initMap&v=weekly"
+></script>
+{% endblock script %}
+
+

@@ -8,11 +8,23 @@
 {% endblock title %}
 
 {% block content %}
-{% if searched %}
-<h1>
-  You search for... {{ searched }}
-</h1>
-{% else %}
-<h1>Enter sth in search field</h1>
-{% endif %}
+<br>
+<div class="container">
+    {% if searched_country %}
+    <h1>
+
+        You search for... {{ searched_country }}
+    </h1>
+    {% for country in countries %}
+    <p>
+        <a href="{% url 'show-country' country.slug %}">{{country}}</a>
+
+    </p>
+    {% endfor %}
+
+    {% else %}
+    <h1>Enter sth in search field</h1>
+    {% endif %}
+</div>
+
 {% endblock content %}
