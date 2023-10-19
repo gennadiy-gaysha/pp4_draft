@@ -9,5 +9,4 @@ urlpatterns = [
     path('post/delete/<slug:slug>/', views.DeletePost.as_view(), name='delete-post'),
     path('search_country/', views.search_country, name='search-country'),
     path('<slug:slug>/', views.ShowCountry.as_view(), name='show-country'),
-
 ]

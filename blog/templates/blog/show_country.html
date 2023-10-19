@@ -10,7 +10,7 @@
 {% block content %}
 <div class="container mt-3">
     <div class="card mb-3">
-        <div class="row g-0">
+        <div class="row g-0 justify-content-center">
             <div class="col-md-4 mt-3 d-flex flex-column align-items-center text-center">
                 <div class="image-border">
                     <img src="https://img.geonames.org/flags/x/{{country.iso|lower}}.gif"
@@ -22,7 +22,7 @@
                 <div id="map">
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="card-body text-center">
                     <h4 class="card-title">{{ country.country_name }}</h4>
                     <br>
@@ -69,10 +69,38 @@
 {% endblock content %}
 
 {% block script %}
+
+<script
+        async
+        defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGFGiwZKkyfzWEGr1CKbn2vphW4A-dOHg&callback=initMap&v=weekly"
+></script>
+
 <script>
   function initMap() {
     let geocoder = new google.maps.Geocoder();
-    let countryName = "{{country.country_name}}"; // Replace with the desired country name
+    let countryName = "{{country.country_name}}";
+
+    {% if country.country_name == 'Falkland Islands' %}
+    let capitalCoordinates = { lat: -51.6953, lng: -57.8533 };
+
+    geocoder.geocode({ address: countryName }, function (results, status) {
+      if (status === "OK") {
+        let countryCoordinates = results[0].geometry.location;
+        let map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 3,
+          center: countryCoordinates,
+        });
+        let marker = new google.maps.Marker({
+          position: capitalCoordinates,
+          map: map,
+        });
+      } else {
+        console.log("Geocode was not successful for the following reason: " + status);
+      }
+    });
+
+    {% else %}
     let capitalName = "{{country.capital}}"; // Replace with the desired capital city name
 
     geocoder.geocode({ address: countryName }, function (results, status) {
@@ -82,7 +110,7 @@
           if (status === "OK") {
             let capitalCoordinates = results[0].geometry.location;
             let map = new google.maps.Map(document.getElementById("map"), {
-              zoom: 4,
+              zoom: 3,
               center: countryCoordinates,
             });
             let marker = new google.maps.Marker({
@@ -97,19 +125,12 @@
         console.log("Geocode was not successful for the following reason: " + status);
       }
     });
+    {% endif %}
   }
-
-
-
 
 </script>
 
 
-<script
-        async
-        defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKhUd-XD5DrQb_77xWuj-yIQqMkQcrUV0&callback=initMap&v=weekly"
-></script>
 {% endblock script %}
 
 

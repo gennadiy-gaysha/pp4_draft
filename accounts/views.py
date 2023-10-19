@@ -73,6 +73,12 @@ class CreateProfile(CreateView):
         messages.success(self.request, 'Profile created successfully.')
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, f'Error in {field}: {error}')
+        return super().form_invalid(form)
+
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         # Exclude fields as needed

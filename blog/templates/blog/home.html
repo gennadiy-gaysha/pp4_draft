@@ -30,8 +30,8 @@
                                 {% endif %}
                                 <div class="image-flash">
                                     <p class="author"><a href="{% url 'author-bio' author_name=post.author %}"
-                                                         class="text-white" style="text-decoration: none">Author:
-                                        {{ post.author }} | {{post.country}}</a></p>
+                                                         class="text-white text-decoration-none">
+                                        {{ post.author }}</a> | <a class="text-white text-decoration-none" href="{% url 'show-country' post.country.slug %}">{{post.country}}</a></p>
                                 </div>
                             </div>
                             <a href="{% url 'post-details' post.slug %}" class="post-link">

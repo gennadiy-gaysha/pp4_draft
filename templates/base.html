@@ -92,6 +92,10 @@
                     </ul>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'about' %}">About</a>
+                </li>
+
                 <li class="hello-user nav-link">hello, {{user.username}}</li>
                 {% else %}
                 <li class="nav-item">
@@ -99,6 +103,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'about' %}">About</a>
                 </li>
                 <li class="hello-user">hello, guest user</li>
 
@@ -156,7 +163,7 @@
             let messages = document.getElementById('msg');
             let alert = new bootstrap.Alert(messages);
             alert.close()
-            }, 1000);
+            }, 3000);
 
 
 </script>

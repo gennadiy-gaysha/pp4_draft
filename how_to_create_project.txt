@@ -325,5 +325,13 @@ https://docs.google.com/document/d/1bRNpiUz-89RV0EPzuvbvXyGcSErbR3eRcjfMSNHUaBg/
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKhUd-XD5DrQb_77xWuj-yIQqMkQcrUV0&callback=initMap&v=weekly"
     ></script>
   </body>
+  ==============================================================
+  Falklend Islands -51.695370735079095, -57.853380499755765
+  Bermuda
+  Antarctica
+  Anguilla
+  Cocos Islands
+  Isle of Man
+  Macao
 
 

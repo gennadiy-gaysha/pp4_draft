@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from travelblog import settings
 from .models import Post, Country
 from .forms import PostForm
 
@@ -56,9 +57,16 @@ class CreatePost(LoginRequiredMixin, CreateView):
         form_valid method of the parent class (CreateView) to ensure that
         the standard behavior of the CreateView is executed.
         """
+
         form.instance.author = self.request.user
         messages.success(self.request, 'Post created successfully.')
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(self.request, f'Error in {field}: {error}')
+        return super().form_invalid(form)
 
 
 class UpdatePost(UpdateView):
@@ -73,7 +81,7 @@ class UpdatePost(UpdateView):
         # Get the post being updated
         post = form.instance
         # Set the status to 0 (Draft)
-        post.status = 0
+        # post.status = 0
         # Save the updated post with the new status
         post.save()
         # Add a success message
@@ -101,8 +109,14 @@ def search_country(request):
     if request.method == 'POST':
         searched_country = request.POST.get('searched-country')
         countries = Country.objects.filter(country_name__icontains=searched_country)
-        context={'searched_country': searched_country, 'countries': countries}
+        context = {'searched_country': searched_country, 'countries': countries}
         return render(request, 'blog/show_search_country.html', context)
     else:
         return render(request, 'blog/show_search_country.html')
+
+def hide_api(request):
+    context = {
+        'api_key': settings.GOOGLE_API_KEY
+    }
+    return render(request, 'show_country.html', context)
 

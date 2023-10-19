@@ -77,3 +77,7 @@ class UserProfileForm(forms.ModelForm):
             'facebook_profile': forms.URLInput(attrs={'class': 'form-control'}),
             'linkedin_profile': forms.URLInput(attrs={'class': 'form-control'}),
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields[
+            'date_of_birth'].help_text = '<span style="color: green">YYYY-MM-DD (please, follow this date format)'
