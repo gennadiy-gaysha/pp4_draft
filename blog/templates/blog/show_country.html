@@ -17,10 +17,8 @@
                          class="img-fluid rounded-start"
                          alt="{{country.country_name}} flag">
                 </div>
-
                 <br>
-                <div id="map">
-                </div>
+                <div id="map"></div>
             </div>
             <div class="col-md-4">
                 <div class="card-body text-center">
@@ -73,34 +71,13 @@
 <script
         async
         defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGFGiwZKkyfzWEGr1CKbn2vphW4A-dOHg&callback=initMap&v=weekly"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRfWpP45aS8GtQRilRNZJ_p0zB873kdRU&callback=initMap&v=weekly"
 ></script>
 
 <script>
-  function initMap() {
+    function initMap() {
     let geocoder = new google.maps.Geocoder();
     let countryName = "{{country.country_name}}";
-
-    {% if country.country_name == 'Falkland Islands' %}
-    let capitalCoordinates = { lat: -51.6953, lng: -57.8533 };
-
-    geocoder.geocode({ address: countryName }, function (results, status) {
-      if (status === "OK") {
-        let countryCoordinates = results[0].geometry.location;
-        let map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 3,
-          center: countryCoordinates,
-        });
-        let marker = new google.maps.Marker({
-          position: capitalCoordinates,
-          map: map,
-        });
-      } else {
-        console.log("Geocode was not successful for the following reason: " + status);
-      }
-    });
-
-    {% else %}
     let capitalName = "{{country.capital}}"; // Replace with the desired capital city name
 
     geocoder.geocode({ address: countryName }, function (results, status) {
@@ -125,7 +102,6 @@
         console.log("Geocode was not successful for the following reason: " + status);
       }
     });
-    {% endif %}
   }
 
 </script>

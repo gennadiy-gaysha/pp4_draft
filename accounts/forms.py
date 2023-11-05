@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django_summernote.widgets import SummernoteWidget
 
 from accounts.models import UserProfile
+from blog.models import Country
 
 
 class RegisterForm(UserCreationForm):
@@ -19,13 +20,21 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email address is already in use.",
+                                        code='invalid', params={'value': email},
+                                        )
+        return email
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({"class": "form-control"})
         self.fields['password1'].widget.attrs.update({"class": "form-control"})
         self.fields['password2'].widget.attrs.update({"class": "form-control"})
         self.fields[
-            'username'].help_text = '<span style="color: red">Disclaimer: Once created, you cannot change your username.</span><br><span>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>'
+            'username'].help_text = '<span style="color: green">Disclaimer: Once created, you cannot change your username.</span><br><span>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>'
 
 
 class UserDetailsForm(UserChangeForm):
@@ -60,11 +69,13 @@ class ChangePasswordForm(PasswordChangeForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    home_country = forms.ModelChoiceField(queryset=Country.objects.all(),
+                                          widget=forms.Select(attrs={'class': 'form-select'}))
     class Meta:
         model = UserProfile
         fields = (
-        'profile_picture', 'bio', 'home_country', 'gender', 'date_of_birth', 'instagram_profile', 'twitter_profile',
-        'facebook_profile', 'linkedin_profile')
+            'profile_picture', 'bio', 'home_country', 'gender', 'date_of_birth', 'instagram_profile', 'twitter_profile',
+            'facebook_profile', 'linkedin_profile')
 
         widgets = {
             'profile_picture': forms.FileInput(attrs={'class': 'form-control-file'}),
@@ -77,6 +88,7 @@ class UserProfileForm(forms.ModelForm):
             'facebook_profile': forms.URLInput(attrs={'class': 'form-control'}),
             'linkedin_profile': forms.URLInput(attrs={'class': 'form-control'}),
         }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields[

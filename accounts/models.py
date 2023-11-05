@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
+from blog.models import Country
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -11,7 +13,7 @@ class UserProfile(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')],
                               blank=True)
-    home_country = models.CharField(max_length=100, blank=True)
+    home_country = models.ForeignKey(Country, on_delete=models.CASCADE, null=False)
     instagram_profile = models.URLField(blank=True)
     twitter_profile = models.URLField(blank=True)
     facebook_profile = models.URLField(blank=True)

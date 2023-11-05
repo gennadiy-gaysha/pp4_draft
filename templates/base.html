@@ -107,7 +107,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{% url 'about' %}">About</a>
                 </li>
-                <li class="hello-user">hello, guest user</li>
+                <li class="hello-user nav-link">hello, guest user</li>
 
                 {% endif %}
             </ul>
@@ -157,15 +157,12 @@
 {% block script %}
 {% endblock script %}
 
-
 <script>
         setTimeout(function(){
             let messages = document.getElementById('msg');
             let alert = new bootstrap.Alert(messages);
             alert.close()
-            }, 3000);
-
-
+            }, 1000);
 </script>
 
 </body>
