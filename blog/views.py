@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -120,3 +121,5 @@ def hide_api(request):
     }
     return render(request, 'show_country.html', context)
 
+def pageNotFound(request, exception):
+    return HttpResponseNotFound('<h1>Ooops. This page does not exist</h1>')
