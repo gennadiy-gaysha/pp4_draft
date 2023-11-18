@@ -33,6 +33,7 @@ class RegisterForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({"class": "form-control"})
         self.fields['password1'].help_text = ''
+        self.fields['password1'].help_text = 'Some text'
         self.fields['password1'].widget.attrs.update({"class": "form-control"})
         self.fields['password2'].widget.attrs.update({"class": "form-control"})
         self.fields[
