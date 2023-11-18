@@ -30,9 +30,13 @@
                         <div class="card-body">
                             <div class="image-container">
                                 {% if "placeholder" in post.featured_image.url %}
-                                <img class="card-img-top" src="{% static 'logo.jpg' %}">
+                                <img class="card-img-top"
+                                     src="{% static 'logo.jpg' %}"
+                                     alt="Placeholder">
                                 {% else %}
-                                <img class="card-img-top" src=" {{ post.featured_image.url }}">
+                                <img class="card-img-top"
+                                     src=" {{ post.featured_image.url }}"
+                                     alt="Post image">
                                 {% endif %}
                                 <div class="image-flash">
                                     <p class="author"><a href="{% url 'author-bio' author_name=post.author %}"
@@ -45,7 +49,7 @@
                                 <h2 class="card-title">{{ post.title }}</h2>
                                 <!--                                <p class="card-text">{{ post.content|safe|truncatewords_html:7 }}</p>-->
                             </a>
-                            <hr/>
+                            <hr>
                             <p class="card-text text-muted h6">{{ post.created_on}} <i class="far fa-heart"></i>
                                 {{ post.number_of_likes }}</p>
                         </div>
