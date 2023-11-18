@@ -11,9 +11,15 @@
     <div class="row">
         <div class="mt-3"></div>
         <form class="form-inline" method="get">
-            {{ filter.form }}
-            <button type="submit" class="btn btn-secondary mb-1">Apply Filter</button>
-        </form>
+    {% csrf_token %}
+    {% for field in filter.form %}
+        {% if field.name == 'country' %}
+            <label for="{{ field.id_for_label }}">Filter by country:</label>
+            {{ field }}
+        {% endif %}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Apply Filter</button>
+</form>
 
         <!-- Blog Entries Column -->
         <div class="col-12 mt-3 left">
