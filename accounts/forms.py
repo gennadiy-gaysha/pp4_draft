@@ -33,7 +33,7 @@ class RegisterForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({"class": "form-control"})
         self.fields['password1'].help_text = ''
-        self.fields['password1'].help_text = '<ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul>'
+        self.fields['password1'].help_text = '<li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li>'
         self.fields['password1'].widget.attrs.update({"class": "form-control"})
         self.fields['password2'].widget.attrs.update({"class": "form-control"})
         self.fields[
