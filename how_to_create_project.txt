@@ -326,13 +326,14 @@ https://docs.google.com/document/d/1bRNpiUz-89RV0EPzuvbvXyGcSErbR3eRcjfMSNHUaBg/
     ></script>
   </body>
   ==============================================================
-  Falklend Islands -51.695370735079095, -57.853380499755765
+  Falkland Islands
   Bermuda
   Antarctica
-  Anguilla
   Cocos Islands
   Isle of Man
-  Macao
-  Namibia
+
+
+
+
 
 

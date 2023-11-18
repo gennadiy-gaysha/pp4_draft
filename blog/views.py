@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -40,6 +41,7 @@ class CreatePost(LoginRequiredMixin, CreateView):
     form_class = PostForm
     template_name = 'blog/create_post.html'
 
+
     # fields = ('title', 'featured_image', 'content')
 
     def form_valid(self, form):
@@ -74,6 +76,15 @@ class UpdatePost(UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'blog/update_post.html'
+
+    def get(self, request, *args, **kwargs):
+        post = self.get_object()
+
+        # Checks if the user is authenticated or is the author of the post
+        if not request.user.is_authenticated or not request.user == post.author:
+            raise PermissionDenied  # Triggers permission_denied view
+
+        return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
         """
@@ -121,5 +132,8 @@ def hide_api(request):
     }
     return render(request, 'show_country.html', context)
 
-def pageNotFound(request, exception):
-    return HttpResponseNotFound('<h1>Ooops. This page does not exist</h1>')
+def page_not_found(request, exception):
+    return render(request, '404.html', status=404)
+
+def permission_denied(request, exception):
+    return render(request, '403.html', status=403)

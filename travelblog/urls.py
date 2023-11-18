@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from blog.views import pageNotFound
+from blog.views import page_not_found, permission_denied
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,5 +12,6 @@ urlpatterns = [
     path('account/', include('accounts.urls')),
 ]
 
-handler404 = pageNotFound
+handler404 = page_not_found
+handler403 = permission_denied
 

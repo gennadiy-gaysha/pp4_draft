@@ -14,6 +14,8 @@ class PostForm(forms.ModelForm):
         super(PostForm, self).__init__(*args, **kwargs)
         countries = Country.objects.all().order_by('country_name')
         self.fields['country'].queryset = countries
+        self.fields['status'].choices = [(0, 'Save as draft'),
+                                         (1, 'Send to moderation')]
 
     class Meta:
         model = Post
