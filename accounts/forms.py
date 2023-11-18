@@ -12,8 +12,7 @@ class RegisterForm(UserCreationForm):
     first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    username = forms.CharField(
-        widget=forms.TextInput({'class': 'form-control'}), max_length=20)
+
 
     # password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     # password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -32,7 +31,8 @@ class RegisterForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        self.fields['username'].widget.attrs.update({"class": "form-control"})
+        self.fields['password1'].help_text = ''
         self.fields['password1'].widget.attrs.update({"class": "form-control"})
         self.fields['password2'].widget.attrs.update({"class": "form-control"})
         self.fields[
