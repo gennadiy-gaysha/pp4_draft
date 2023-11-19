@@ -11,15 +11,10 @@
     <div class="row">
         <div class="mt-3"></div>
         <form class="form-inline" method="get">
-    {% csrf_token %}
-    {% for field in filter.form %}
-        {% if field.name == 'country' %}
-            <label for="{{ field.id_for_label }}">Filter by country:</label>
-            {{ field }}
-        {% endif %}
-    {% endfor %}
-    <button type="submit" class="btn btn-primary">Apply Filter</button>
-</form>
+            <label for="{{ filter.form.country.id_for_label }}">Filter by country:</label>
+            {{ filter.form.country }}
+            <button type="submit" class="btn btn-secondary mb-1">Apply Filter</button>
+        </form>
 
         <!-- Blog Entries Column -->
         <div class="col-12 mt-3 left">
@@ -31,12 +26,10 @@
                             <div class="image-container">
                                 {% if "placeholder" in post.featured_image.url %}
                                 <img class="card-img-top"
-                                     src="{% static 'logo.jpg' %}"
-                                     alt="Placeholder">
+                                     src="{% static 'logo.jpg' %}" alt="">
                                 {% else %}
                                 <img class="card-img-top"
-                                     src=" {{ post.featured_image.url }}"
-                                     alt="Post image">
+                                     src=" {{ post.featured_image.url }}" alt="">
                                 {% endif %}
                                 <div class="image-flash">
                                     <p class="author"><a href="{% url 'author-bio' author_name=post.author %}"
